@@ -8,11 +8,11 @@ if __name__ == '__main__':
 	with open('.proxyauth','w') as f:
 		exit
 		secret = md5(str(time())).hexdigest()
-		secret = secret[0:6]+":C:"+secret[10:16]
+		secret = secret[0:6]+":CL:"+secret[10:16]
 		f.write(secret)
 		f.close()
 		# print secret
-		# os.system("sudo apt-get update && apt-get -y upgrade")
+		os.system("sudo apt-get update && apt-get -y upgrade")
 		os.system("sudo apt-get install -y build-essential")
 		os.system("rm 3proxy.cfg -f")
 		os.system("rm 3proxyinit -f")
