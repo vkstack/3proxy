@@ -1,17 +1,19 @@
-import os
+import os,sys
 from hashlib import md5
 from time import time
 
+# def initialize():
 if __name__ == '__main__':
-	# print secret,secret[0:16]+":C:"+secret[16:32]
+# if __name__ != '__main__':
 	with open('.proxyauth','w') as f:
+		exit
 		secret = md5(str(time())).hexdigest()
 		secret = secret[0:16]+":C:"+secret[16:32]
 		f.write(secret)
 		f.close()
-		print secret
+		# print secret
 		# os.system("sudo apt-get update && apt-get -y upgrade")
-		# os.system("sudo apt-get install -y build-essential nano")
+		os.system("sudo apt-get install -y build-essential")
 		os.system("rm 3proxy.cfg -f")
 		os.system("rm 3proxyinit -f")
 		os.system("rm 3proxy -f")
@@ -33,4 +35,9 @@ if __name__ == '__main__':
 		# os.system("sudo service 3proxyinit stop")
 		os.system("sudo update-rc.d 3proxyinit defaults")
 		print "\n\n\n\n\nProxy authentication is:\n\n"+secret+"\n\n\n"
-		
+		try:
+			if sys.argv[1]=='start':
+				os.system("sudo /etc/init.d/3proxyinit start")
+		except Exception as e:
+			print ""
+			
