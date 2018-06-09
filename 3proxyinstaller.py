@@ -45,11 +45,15 @@ if __name__ == '__main__':
 		setUp()
 	elif sys.argv[1] == 'start':
 		secret = generateAuth()
+		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
+		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'stop':
 		os.system("sudo /etc/init.d/3proxyinit stop")
 	elif sys.argv[1] == 'restart':
 		secret = generateAuth()
+		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
+		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		os.system("sudo /etc/init.d/3proxyinit stop")
 		os.system("sudo /etc/init.d/3proxyinit start")
 	# print "\n\n\n\n\nProxy authentication is:\n\n"+secret+"\n\n\n"
