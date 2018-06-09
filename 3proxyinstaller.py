@@ -8,7 +8,7 @@ if __name__ == '__main__':
 	with open('.proxyauth','w') as f:
 		exit
 		secret = md5(str(time())).hexdigest()
-		secret = secret[0:16]+":C:"+secret[16:32]
+		secret = secret[0:6]+":C:"+secret[10:16]
 		f.write(secret)
 		f.close()
 		# print secret
@@ -40,4 +40,3 @@ if __name__ == '__main__':
 				os.system("sudo /etc/init.d/3proxyinit start")
 		except Exception as e:
 			print ""
-			
