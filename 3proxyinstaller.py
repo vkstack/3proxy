@@ -26,6 +26,7 @@ def setUp():
 	os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/archive/3proxy.cfg")
 	os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/archive/3proxyinit")
 	os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/archive/3proxy")
+	secret = generateAuth()
 	os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 	os.system("sudo mv 3proxy.cfg /etc/3proxy/")
 	os.system("sudo mv 3proxy /etc/3proxy/")
@@ -38,9 +39,6 @@ def setUp():
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
-		secret = generateAuth()
-		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
-		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		setUp()
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'setup':
