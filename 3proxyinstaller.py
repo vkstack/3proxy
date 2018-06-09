@@ -1,22 +1,32 @@
 import os
+from hashlib import md5
+from time import time
 
-os.call("sudo apt-get update && apt-get -y upgrade")
-os.call("sudo apt-get install -y build-essential nano")
-# os.call("sudo wget --no-check-certificate https://github.com/z3APA3A/3proxy/archive/3proxy-0.8.6.tar.gz")
-# os.call("sudo tar xzf 3proxy-0.8.6.tar.gz")
-# os.call("sudo cd 3proxy-3proxy-0.8.6")
-# os.call("sudo make -f Makefile.Linux")
-# os.call("sudo cd src")
-os.call("sudo mkdir /etc/3proxy/")
-# os.call("sudo mv 3proxy /etc/3proxy/")
-os.call("sudo cd /etc/3proxy/")
-os.call("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/3proxy.cfg")
-os.call("sudo chmod 600 /etc/3proxy/3proxy.cfg")
-# os.call("sudo wget --no-check-certificate https://github.com/barankilic/3proxy/raw/master/.proxyauth")
-with open('.proxyauth','w') as f:
-
-os.call("sudo chmod 600 /etc/3proxy/.proxyauth")
-os.call("sudo cd /etc/init.d/")
-os.call("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/3proxyinit")
-os.call("sudo chmod  +x /etc/init.d/3proxyinit")
-os.call("sudo update-rc.d 3proxyinit defaults")
+if __name__ == '__main__':
+	# print secret,secret[0:16]+":C:"+secret[16:32]
+	with open('.proxyauth','w') as f:
+		secret = md5(str(time())).hexdigest()
+		secret = secret[0:16]+":C:"+secret[16:32]
+		f.write(secret)
+		f.close()
+		print secret
+		# os.system("sudo apt-get update && apt-get -y upgrade")
+		# os.system("sudo apt-get install -y build-essential nano")
+		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
+		os.system("rm 3proxy.cfg -f")
+		os.system("rm 3proxyinit -f")
+		os.system("rm 3proxy -f")
+		os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/3proxy.cfg")
+		os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/3proxyinit")
+		os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/3proxy")
+		os.system("sudo mkdir /etc/3proxy/")
+		os.system("sudo mv 3proxy.cfg /etc/3proxy/")
+		os.system("sudo mv 3proxy /etc/3proxy/")
+		os.system("sudo mv 3proxyinit /etc/init.d/")
+		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
+		os.system("sudo chmod 600 /etc/3proxy/3proxy.cfg")
+		os.system("sudo chmod  +x /etc/init.d/3proxyinit")
+		# os.system("sudo cd /etc/init.d/")
+		os.system("sudo update-rc.d 3proxyinit defaults")
+		print "\n\n\n\n\nProxy authentication is:\n\n"+secret+"\n\n\n"
+		
