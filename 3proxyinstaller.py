@@ -10,8 +10,8 @@ if __name__ == '__main__':
 		f.write(secret)
 		f.close()
 		print secret
-		# os.system("sudo apt-get update && apt-get -y upgrade")
-		# os.system("sudo apt-get install -y build-essential nano")
+		os.system("sudo apt-get update && apt-get -y upgrade")
+		os.system("sudo apt-get install -y build-essential nano")
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 		os.system("rm 3proxy.cfg -f")
 		os.system("rm 3proxyinit -f")
