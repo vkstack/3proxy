@@ -3,6 +3,7 @@ from hashlib import md5
 from time import time
 
 def generateAuth():
+	os.system("sudo rm -rf /etc/3proxy/.proxyauth")
 	with open('.proxyauth','w') as f:
 		exit
 		secret = md5(str(time())).hexdigest()
