@@ -38,8 +38,10 @@ def setUp():
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
-		setUp()
 		secret = generateAuth()
+		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
+		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
+		setUp()
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'setup':
 		setUp()
