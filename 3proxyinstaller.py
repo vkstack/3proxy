@@ -56,9 +56,3 @@ if __name__ == '__main__':
 		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		os.system("sudo /etc/init.d/3proxyinit stop")
 		os.system("sudo /etc/init.d/3proxyinit start")
-	# print "\n\n\n\n\nProxy authentication is:\n\n"+secret+"\n\n\n"
-	# try:
-	# 	if sys.argv[1]=='start':
-	# 		os.system("sudo /etc/init.d/3proxyinit start")
-	# except Exception as e:
-	# 	print ""
