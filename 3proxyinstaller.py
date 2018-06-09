@@ -18,6 +18,7 @@ if __name__ == '__main__':
 		os.system("rm 3proxyinit -f")
 		os.system("rm 3proxy -f")
 		os.system("sudo rm -rf /etc/3proxy")
+		os.system("/etc/init.d/3proxyinit stop")
 		os.system("sudo rm -rf /etc/init.d/3proxyinit")
 		os.system("sudo mkdir /etc/3proxy/")
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
