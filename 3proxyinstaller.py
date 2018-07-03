@@ -40,15 +40,17 @@ def setUp():
 def setPort(port=8000):
 	os.system("sudo cp 3proxy.cfg /etc/3proxy/3proxy.cfg")
 	with open('/etc/3proxy/3proxy.cfg','a') as f:
-		f.write("\nproxy -n -p"+8000+" -a")
+		f.write("\nproxy -n -p"+str(8000)+" -a")
 		f.close()
 
 if __name__ == '__main__':
 	port = 8000	
-	if (len(sys.argv) > 2 and type(sys.argv[2])=='int') or (len(sys.argv)==1 and type(sys.argv[2])=='int'):
+	if len(sys.argv) > 2 and isinstance(sys.argv[2],int) :
 		port  = sys.argv[2]
+	if len(sys.argv)==2 and isinstance(sys.argv[1],int)=='int':
+		port  = sys.argv[1]
 
-	if len(sys.argv) == 1 or type(sys.argv[1])=='int':
+	if len(sys.argv) == 1 or isinstance(sys.argv[1],int):
 		setUp()
 		setPort(port)
 		os.system("sudo /etc/init.d/3proxyinit start")
