@@ -28,7 +28,7 @@ def setUp():
 	os.system("sudo wget --no-check-certificate https://raw.githubusercontent.com/vkstack/3proxy/master/archive/3proxy")
 	secret = generateAuth()
 	os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
-	os.system("sudo mv 3proxy.cfg /etc/3proxy/")
+	os.system("sudo cp 3proxy.cfg /etc/3proxy/3proxy.cfg")
 	os.system("sudo mv 3proxy /etc/3proxy/")
 	os.system("sudo mv 3proxyinit /etc/init.d/")
 	os.system("sudo chmod a+x /etc/3proxy/3proxy")
@@ -37,9 +37,20 @@ def setUp():
 	os.system("sudo chmod  +x /etc/init.d/3proxyinit")
 	os.system("sudo update-rc.d 3proxyinit defaults")
 
+def setPort(port=8000):
+	os.system("sudo cp 3proxy.cfg /etc/3proxy/3proxy.cfg")
+	with open('/etc/3proxy/3proxy.cfg','a') as f:
+		f.write("\nproxy -n -p"+8000+" -a")
+		f.close()
+
 if __name__ == '__main__':
-	if len(sys.argv) == 1:
+	port = 8000	
+	if (len(sys.argv) > 2 and type(sys.argv[2])=='int') or (len(sys.argv)==1 and type(sys.argv[2])=='int'):
+		port  = sys.argv[2]
+
+	if len(sys.argv) == 1 or type(sys.argv[1])=='int':
 		setUp()
+		setPort(port)
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'setup':
 		setUp()
@@ -47,6 +58,7 @@ if __name__ == '__main__':
 		secret = generateAuth()
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
+		setPort(port)
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'stop':
 		os.system("sudo /etc/init.d/3proxyinit stop")
@@ -55,4 +67,5 @@ if __name__ == '__main__':
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		os.system("sudo /etc/init.d/3proxyinit stop")
+		setPort(port)
 		os.system("sudo /etc/init.d/3proxyinit start")
