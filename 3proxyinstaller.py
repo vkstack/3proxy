@@ -46,7 +46,7 @@ def setPort():
 		port = 8000
 	os.system("sudo cp 3proxy.cfg 3proxy.cfg.tmp")
 	f = open('3proxy.cfg.tmp','a')
-	f.write("\nproxy -n -p"+str(port)+" -a")
+	f.write("\nproxy -n -p"+str(port)+" -a\n")
 	f.close()
 	os.system("sudo mv 3proxy.cfg.tmp /etc/3proxy/3proxy.cfg")
 
