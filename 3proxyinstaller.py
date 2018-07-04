@@ -75,7 +75,7 @@ if __name__ == '__main__':
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == "showcred":
 		try:
-			f=  open('./etc/3proxy/.proxyauth')
+			f=  open('/etc/3proxy/.proxyauth')
 			print f.read()
 			f.close()
 		except Exception as e:
