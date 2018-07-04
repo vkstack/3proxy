@@ -37,22 +37,23 @@ def setUp():
 	os.system("sudo chmod  +x /etc/init.d/3proxyinit")
 	os.system("sudo update-rc.d 3proxyinit defaults")
 
-def setPort(port=8000):
+def setPort():
+	try:
+		port = input("What port do yo want your proxy running at...???:\n")
+	except Exception as e:
+		port=8000
+	if port==0:
+		port = 8000
 	os.system("sudo cp 3proxy.cfg /etc/3proxy/3proxy.cfg")
 	with open('/etc/3proxy/3proxy.cfg','a') as f:
 		f.write("\nproxy -n -p"+str(8000)+" -a")
 		f.close()
 
 if __name__ == '__main__':
-	port = 8000	
-	if len(sys.argv) > 2 and isinstance(sys.argv[2],int) :
-		port  = sys.argv[2]
-	if len(sys.argv)==2 and isinstance(sys.argv[1],int)=='int':
-		port  = sys.argv[1]
 
-	if len(sys.argv) == 1 or isinstance(sys.argv[1],int):
+	if len(sys.argv) == 1:
 		setUp()
-		setPort(port)
+		setPort()
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'setup':
 		setUp()
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 		secret = generateAuth()
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
-		setPort(port)
+		setPort()
 		os.system("sudo /etc/init.d/3proxyinit start")
 	elif sys.argv[1] == 'stop':
 		os.system("sudo /etc/init.d/3proxyinit stop")
@@ -69,5 +70,12 @@ if __name__ == '__main__':
 		os.system("sudo cp .proxyauth /etc/3proxy/.proxyauth")
 		os.system("sudo chmod 600 /etc/3proxy/.proxyauth")
 		os.system("sudo /etc/init.d/3proxyinit stop")
-		setPort(port)
+		setPort()
 		os.system("sudo /etc/init.d/3proxyinit start")
+	elif sys.argv[1] == "showcred":
+		try:
+			f=  open('./etc/3proxy/.proxyauth')
+			print f.read()
+			f.close()
+		except Exception as e:
+			print "\nYou fucking shit. Setup first.\n"
